@@ -25,8 +25,8 @@ spring:
             serverUrl: http://localhost:8080
   datasource:
     url: jdbc:mysql://db.ctd.academy:3306/PI2_GRUPO3 #jdbc:mysql://mysql:3306/pi_dmh
-    username: PI2_GRUPO3
-    password: ce1iew8E #admin
+    username: ${USERNAMESQL}
+    password: ${PASSWORDSQL} #admin
     driver-class-name: com.mysql.cj.jdbc.Driver
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
@@ -34,10 +34,10 @@ spring:
     hibernate:
       ddl-auto: update
   email:
-    host: smtp.gmail.com
-    port: 587
-    username: dmh.equipo03@gmail.com
-    password: xcjzxnceebzkhlrr
+    host: ${HOSTEMAIL}
+    port: ${PORTEMAIL}
+    username: ${USERNAMEEMAIL}
+    password: ${PASSWORDEMAIL}
     properties:
       mail:
         smtp:
