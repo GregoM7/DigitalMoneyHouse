@@ -1,0 +1,46 @@
+Server:
+  port: 8087
+
+spring:
+  application:
+    name: user-service
+  eureka:
+    client:
+      enabled: true
+      service-url:
+        defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8085/realms/DigitalMoneyHouse
+        registration:
+          keycloak:
+            client-id: microservicios
+            client-secret: CtECnNgzmaK0HQ3P8iZRuuFgZL58avWz
+            scope: openid
+            redirect_uri: http://localhost:8085/login/oauth2/code/keycloak
+            realm: DigitalMoneyHouse
+            serverUrl: http://localhost:8085
+  datasource:
+    url: jdbc:mysql://localhost:3306/pi_dmh  #jdbc:mysql://mysql:3306/pi_dmh
+    username: root
+    password: admin #admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+app:
+  cors:
+    allowed-origins: http://localhost:3000
+
+dh:
+  keycloak:
+    realm: DigitalMoneyHouse
+    serverUrl: http://localhost:8085
+    clientId: microservicios
+    clientSecret: CtECnNgzmaK0HQ3P8iZRuuFgZL58avWz
+    tokenEndpoint:

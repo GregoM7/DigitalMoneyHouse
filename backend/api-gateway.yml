@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - name: TokenRelay
+        - name: LoggingFilter
+      routes:
+        - id: userRoute
+          uri: lb://user-service
+          predicates:
+            - Path=/users/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: userService
+                fallbackUri: forward:/fallback/user
+   security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8085/realms/DigitalMoneyHouse
+        registration:
+          keycloak:
+            auth-server-url: http://localhost:8085/auth
+            client-id: api-gateway
+            client-secret: 1NnzAqi5HBdYxQV5hywUREIumXS4RT91
+            scope: openid
+            redirect_uri: http://localhost:8080/login/oauth2/code/api-gateway
+            realm: DigitalMoneyHouse
+            provider: keycloak
+
+dmh:
+  keycloakGateway:
+    realm: DigitalMoneyHouse
+    clientId: api-gateway
+    clientSecret: 1NnzAqi5HBdYxQV5hywUREIumXS4RT91
+    serverUrl: http://localhost:8085
+    tokenEndpoint: ${dmh.keycloakGateway.serverUrl}/realms/DigitalMoneyHouse/protocol/openid-connect/token      
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: 1.0.0
+    description: API Gateway

@@ -1,0 +1,14 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitlab.ctd.academy/ctd/hispanos/proyecto-integrador-2/proyecto-integrador-0523/0621ft-c2/equipo-03/-/tree/main/backend
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka # http://EUREKA-SERVER:8761/eureka/ #
